@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package com.github.jille.httpovergrpc;
+
+option go_package = "github.com/Jille/httpovergrpc/proto/pb";
+
+service HTTPOverGRPCService {
+	rpc HTTP(stream HTTPRequest) returns (stream HTTPResponse) {
+	}
+}
+
+message HTTPHeader {
+	string header = 1;
+	repeated string values = 2;
+}
+
+message HTTPRequest {
+	string method = 1;
+	string url = 2;
+	string proto = 3;
+	repeated HTTPHeader headers = 4;
+	string remote_addr = 5;
+
+	bytes body_data = 6;
+}
+
+message HTTPResponse {
+	int32 status_code = 1;
+	repeated HTTPHeader headers = 2;
+
+	bytes body_data = 3;
+}
