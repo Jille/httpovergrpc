@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Forwarder creates a http.Handler that sends incoming requests over the given gRPC connection.
 func Forwarder(s grpc.ClientConnInterface) http.Handler {
 	return handler{pb.NewHTTPOverGRPCServiceClient(s)}
 }
